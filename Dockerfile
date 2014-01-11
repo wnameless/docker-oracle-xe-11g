@@ -22,6 +22,6 @@ RUN printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configur
 EXPOSE 22
 EXPOSE 1521
 
-CMD sed -i -E "s/HOST = [a-z0-9]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
+CMD sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
 	service oracle-xe start; \
 	/usr/sbin/sshd -D
