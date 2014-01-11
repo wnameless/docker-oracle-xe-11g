@@ -1,19 +1,27 @@
-docker-mysql_phpmyadmin
+docker-oracle-xe-11g
 ============================
 
 ```
-docker pull wnameless/mysql-phpmyadmin
+docker pull wnameless/oracle-xe-11g
 ```
 
-Run with 22, 80 and 3306 ports opened:
+Run with 22 and 1521 ports opened:
 ```
-docker run -d -p 49160:22 -p 49161:80 -p 49162:3306 wnameless/mysql-phpmyadmin
+docker run -d -p 49160:22 -p 49161:1521 wnameless/oracle-xe-11g
 ```
 
-Open http://localhost:49161/phpmyadmin in your browser with following credential:
+Connect database with following setting:
 ```
-username: root
-password:
+hostname: localhost
+port: 49161
+sid: xe
+username: system
+password: oracle
+```
+
+Password for SYS
+```
+oracle
 ```
 
 Login by SSH
