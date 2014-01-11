@@ -1,0 +1,59 @@
+##############################################################################
+# Copyright (c) 1991, 2011, Oracle and/or its affiliates. All rights reserved.
+##############################################################################
+ 
+###########################################
+# Cursors and Library Cache
+###########################################
+open_cursors=300
+ 
+###########################################
+# Database Identification
+###########################################
+db_name=XE
+ 
+###########################################
+# File Configuration
+###########################################
+control_files=("/u01/app/oracle/oradata/XE/control.dbf")
+DB_RECOVERY_FILE_DEST=/u01/app/oracle/fast_recovery_area
+DB_RECOVERY_FILE_DEST_SIZE=10G
+ 
+###########################################
+# Job Queues
+###########################################
+job_queue_processes=4
+ 
+###########################################
+# Miscellaneous
+###########################################
+compatible=11.2.0.0.0
+diagnostic_dest=/u01/app/oracle
+#memory_target=1073741824
+#memory_target=1073741824
+pga_aggregate_target=200540160
+sga_target=601620480
+ 
+
+###########################################
+# Sessions
+###########################################
+sessions=20
+ 
+###########################################
+# Security and Auditing
+###########################################
+audit_file_dest=/u01/app/oracle/admin/XE/adump
+remote_login_passwordfile=EXCLUSIVE
+ 
+###########################################
+# Shared Server
+###########################################
+dispatchers="(PROTOCOL=TCP) (SERVICE=XEXDB)"
+shared_servers=4
+
+###########################################
+# System Managed Undo and Rollback Segments
+###########################################
+undo_management=AUTO
+undo_tablespace=UNDOTBS1
