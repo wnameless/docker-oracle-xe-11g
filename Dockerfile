@@ -19,9 +19,9 @@ RUN mv /initXETemp.ora /u01/app/oracle/product/11.2.0/xe/config/scripts
 
 RUN printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configure
 
-RUN echo 'export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe' >> /etc/bash.bashrc
-RUN echo 'export PATH=$ORACLE_HOME/bin:$PATH' >> /etc/bash.bashrc
-RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
+ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
+ENV PATH /u01/app/oracle/product/11.2.0/xe/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+ENV ORACLE_SID XE
 
 EXPOSE 22
 EXPOSE 1521
