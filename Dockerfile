@@ -10,7 +10,7 @@ RUN apt-get install -y libaio1 net-tools bc
 RUN ln -s /usr/bin/awk /bin/awk
 RUN mkdir /var/lock/subsys
 RUN chmod 755 /sbin/chkconfig
-RUN ln -s /proc/mounts /etc/mtab
+#RUN ln -s /proc/mounts /etc/mtab
 
 RUN dpkg --install /tmp/oracle-xe_11.2.0-1.0_amd64.deb
 
