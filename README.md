@@ -1,6 +1,11 @@
 docker-oracle-xe-11g
 ============================
 
+Oracle Express Edition 11g Release 2 on Ubuntu 14.04.1 LTS
+
+This **Dockerfile** is a [trusted build](https://registry.hub.docker.com/u/wnameless/oracle-xe-11g/) of [Docker Registry](https://registry.hub.docker.com/).
+
+### Installation
 ```
 docker pull wnameless/oracle-xe-11g
 ```
@@ -19,7 +24,7 @@ username: system
 password: oracle
 ```
 
-Password for SYS
+Password for SYS & SYSTEM
 ```
 oracle
 ```
