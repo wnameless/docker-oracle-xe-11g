@@ -37,6 +37,10 @@ RUN echo 'export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe' >> /etc/bash.bas
 RUN echo 'export PATH=$ORACLE_HOME/bin:$PATH' >> /etc/bash.bashrc
 RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
 
+# Create SOA qa environment dbf folder
+RUN mkdir -p /opt/oracle/soap/dbf/
+RUN chown -r oracle /opt/oracle
+
 # Remove installation files
 RUN rm /oracle-xe_11.2.0-1.0_amd64.deb*
 
