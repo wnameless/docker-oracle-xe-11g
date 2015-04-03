@@ -32,10 +32,16 @@ RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
 # Remove installation files
 RUN rm /oracle-xe_11.2.0-1.0_amd64.deb*
 RUN apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
+
+# Move initial database to provide database data files be reuseable
+RUN mv /u01/app/oracle/oradata /u01/app/oracle/oradata_initial
+RUN mkdir /u01/app/oracle/oradata && chown oracle:dba /u01/app/oracle/oradata
+
 ADD entrypoint.sh /
 
 EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
+VOLUME ["/u01/app/oracle/oradata"]
 
 ENTRYPOINT ["/entrypoint.sh"]
