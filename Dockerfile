@@ -2,7 +2,6 @@ FROM ubuntu:14.04.1
 
 MAINTAINER Maksym Bilenko <sath891@gmail.com>
 
-ADD entrypoint.sh /
 ADD chkconfig /sbin/chkconfig
 ADD oracle-install.sh /oracle-install.sh
 ADD init.ora /
@@ -21,4 +20,5 @@ EXPOSE 1521
 EXPOSE 8080
 VOLUME ["/u01/app/oracle/oradata"]
 
+ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]

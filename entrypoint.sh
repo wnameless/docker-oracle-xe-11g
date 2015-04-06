@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Prevent owner issues on mounted folders
+chown -R oracle:dba /u01/app/oracle
+# Update hostname
 sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
 
 case "$1" in
@@ -13,7 +16,6 @@ case "$1" in
 			echo "export PATH=$ORACLE_HOME/bin:$PATH" >> /etc/bash.bashrc
 			echo "export ORACLE_SID=XE" >> /etc/bash.bashrc
 			printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configure
-			/etc/init.d/oracle-xe stop || true
 			echo "Database initialized. Please visit http://#containeer:8080/apex to proceed with configuration"
 		fi
 
@@ -23,10 +25,9 @@ case "$1" in
 		##
 		## Workaround for graceful shutdown. ....ing oracle... ‿( ́ ̵ _-`)‿
 		##
-		trap "/etc/init.d/oracle-xe stop && kill -9 $$" INT TERM
-		while [ 1 ]; do
+		while [ "$END" == '' ]; do
 			sleep 1
-			true
+			trap "/etc/init.d/oracle-xe stop && END=1" INT TERM
 		done
 		;;
 
