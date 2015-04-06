@@ -35,3 +35,13 @@ Connect to Oracle Application Express web management console with following sett
     workspace: INTERNAL
     user: ADMIN
     password: oracle
+
+**CHANGELOG**
+* Fixed issue with ownership of mounted data folders.
+* Fixed issue with Gracefull shutdown of service.
+* Reduse size of image from 3.8G to 825Mb.
+* Database initialization moved out of the image build phase. Now database initializes at the containeer startup with no database files mounted.
+* Added database media reuse support outside of container.
+* Added graceful shutdown on containeer stop.
+* Removed sshd.
+
