@@ -4,9 +4,10 @@
 chown -R oracle:dba /u01/app/oracle
 # Update hostname
 sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
-echo "export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe" >> /etc/bash.bashrc
-echo "export PATH=$ORACLE_HOME/bin:$PATH" >> /etc/bash.bashrc
-echo "export ORACLE_SID=XE" >> /etc/bash.bashrc
+echo "export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe" > /etc/profile.d/oracle-xe.sh
+echo "export PATH=\$ORACLE_HOME/bin:\$PATH" >> /etc/profile.d/oracle-xe.sh
+echo "export ORACLE_SID=XE" >> /etc/profile.d/oracle-xe.sh
+. /etc/profile
 
 case "$1" in
 	'')
