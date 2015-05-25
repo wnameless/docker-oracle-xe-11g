@@ -1,18 +1,16 @@
-docker-oracle-xe-11g
+docker-oracle-xe-11g-soa
 ============================
 
-Oracle Express Edition 11g Release 2 on Ubuntu 14.04.1 LTS
-
-This **Dockerfile** is a [trusted build](https://registry.hub.docker.com/u/wnameless/oracle-xe-11g/) of [Docker Registry](https://registry.hub.docker.com/).
+Base Docker Oracle Express Edition 11g Release 2 on Ubuntu 14.04.1 LTS
 
 ### Installation
 ```
-docker pull wnameless/oracle-xe-11g
+docker pull plmwong/oracle-xe-11g-soa
 ```
 
 Run with 22 and 1521 ports opened:
 ```
-docker run -d -p 49160:22 -p 49161:1521 wnameless/oracle-xe-11g
+docker run -d -p 49160:22 -p 49161:1521 plmwong/oracle-xe-11g-soa
 ```
 
 Connect database with following setting:
