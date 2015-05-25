@@ -3,6 +3,7 @@ FROM ubuntu:14.04.1
 MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
 
 ADD chkconfig /sbin/chkconfig
+ADD chgpass /sbin/chgpass
 ADD init.ora /
 ADD initXETemp.ora /
 ADD oracle-xe_11.2.0-1.0_amd64.debaa /
@@ -24,6 +25,7 @@ RUN apt-get install -y libaio1 net-tools bc
 RUN ln -s /usr/bin/awk /bin/awk
 RUN mkdir /var/lock/subsys
 RUN chmod 755 /sbin/chkconfig
+RUN chmod 755 /sbin/chgpass
 
 # Install Oracle
 RUN dpkg --install /oracle-xe_11.2.0-1.0_amd64.deb
@@ -37,9 +39,11 @@ RUN echo 'export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe' >> /etc/bash.bas
 RUN echo 'export PATH=$ORACLE_HOME/bin:$PATH' >> /etc/bash.bashrc
 RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
 
+RUN /sbin/chgpass
+
 # Create SOA qa environment dbf folder
 RUN mkdir -p /opt/oracle/soap/dbf/
-RUN chown -r oracle /opt/oracle
+RUN chown -R oracle /opt/oracle
 
 # Remove installation files
 RUN rm /oracle-xe_11.2.0-1.0_amd64.deb*
