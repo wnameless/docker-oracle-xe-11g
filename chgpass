@@ -1,6 +1,0 @@
-#!/bin/bash
-# Change Oracle system user password
-sqlplus system/oracle@localhost <<EOF
-alter user system identified by oracle123;
-quit;
-EOF
