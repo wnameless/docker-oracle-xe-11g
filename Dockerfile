@@ -1,6 +1,6 @@
 FROM ubuntu:14.04.1
 
-MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
+MAINTAINER PayByPhone <development@paybyphone.com>
 
 ADD chkconfig /sbin/chkconfig
 ADD init.ora /
@@ -23,6 +23,7 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN apt-get install -y libaio1 net-tools bc
 RUN ln -s /usr/bin/awk /bin/awk
 RUN mkdir /var/lock/subsys
+
 RUN chmod 755 /sbin/chkconfig
 
 # Install Oracle
@@ -37,6 +38,19 @@ RUN echo 'export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe' >> /etc/bash.bas
 RUN echo 'export PATH=$ORACLE_HOME/bin:$PATH' >> /etc/bash.bashrc
 RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
 
+# Post Oracle Steps
+RUN mkdir /oracle
+ADD post-oracle-install /oracle/post-oracle-install
+ADD wait-for-oracle /oracle/wait-for-oracle
+ADD has-oracle-started.sql /oracle/has-oracle-started.sql
+ADD setup_roles.sql /oracle/setup_roles.sql
+RUN chmod +x /oracle/post-oracle-install
+RUN chmod +x /oracle/wait-for-oracle
+
+# Create SOA qa environment dbf folder
+RUN mkdir -p /opt/oracle/soap/dbf/
+RUN chown -R oracle /opt/oracle
+
 # Remove installation files
 RUN rm /oracle-xe_11.2.0-1.0_amd64.deb*
 
@@ -44,6 +58,8 @@ EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
 
-CMD sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
-	service oracle-xe start; \
-	/usr/sbin/sshd -D
+#CMD sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
+#	service oracle-xe start; \
+#	/usr/sbin/sshd -D
+
+CMD bash -C '/oracle/post-oracle-install';'bash'
