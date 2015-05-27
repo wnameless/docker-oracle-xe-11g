@@ -1,0 +1,19 @@
+echo Starting Oracle...
+export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export PATH=$ORACLE_HOME/bin:$PATH
+export ORACLE_SID=XE
+
+sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
+service oracle-xe start
+
+echo Changing to oracle folder
+cd oracle
+
+echo Waiting for Oracle to start up...
+./wait-for-oracle
+
+echo Running bootstrap Oracle database scripts...
+sqlplus system/oracle @setup_roles.sql
+
+echo Starting SSH daemon...
+/usr/sbin/sshd -D

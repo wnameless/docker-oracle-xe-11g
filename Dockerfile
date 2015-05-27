@@ -34,10 +34,18 @@ RUN mv /initXETemp.ora /u01/app/oracle/product/11.2.0/xe/config/scripts
 
 RUN printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configure
 
-ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
 RUN echo 'export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe' >> /etc/bash.bashrc
 RUN echo 'export PATH=$ORACLE_HOME/bin:$PATH' >> /etc/bash.bashrc
 RUN echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc
+
+# Post Oracle Steps
+RUN mkdir /oracle
+ADD post-oracle-install /oracle/post-oracle-install
+ADD wait-for-oracle /oracle/wait-for-oracle
+ADD has-oracle-started.sql /oracle/has-oracle-started.sql
+ADD setup_roles.sql /oracle/setup_roles.sql
+RUN chmod +x /oracle/post-oracle-install
+RUN chmod +x /oracle/wait-for-oracle
 
 # Create SOA qa environment dbf folder
 RUN mkdir -p /opt/oracle/soap/dbf/
@@ -50,6 +58,8 @@ EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
 
-CMD sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
-	service oracle-xe start; \
-	/usr/sbin/sshd -D
+#CMD sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora; \
+#	service oracle-xe start; \
+#	/usr/sbin/sshd -D
+
+CMD bash -C '/oracle/post-oracle-install';'bash'
