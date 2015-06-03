@@ -15,7 +15,7 @@ Run with 8080 and 1521 ports opened:
 
 Run with data on host and reuse it:
 
-    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle/oradata sath89/oracle-xe-11g
+    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle sath89/oracle-xe-11g
 
 Connect database with following setting:
 
@@ -37,11 +37,12 @@ Connect to Oracle Application Express web management console with following sett
     password: oracle
 
 **CHANGELOG**
-* Fixed issue with ownership of mounted data folders.
-* Fixed issue with Gracefull shutdown of service.
-* Reduse size of image from 3.8G to 825Mb.
-* Database initialization moved out of the image build phase. Now database initializes at the containeer startup with no database files mounted.
-* Added database media reuse support outside of container.
-* Added graceful shutdown on containeer stop.
-* Removed sshd.
+* Fixed issue with reusable mounted data
+* Fixed issue with ownership of mounted data folders
+* Fixed issue with Gracefull shutdown of service
+* Reduse size of image from 3.8G to 825Mb
+* Database initialization moved out of the image build phase. Now database initializes at the containeer startup with no database files mounted
+* Added database media reuse support outside of container
+* Added graceful shutdown on containeer stop
+* Removed sshd
 

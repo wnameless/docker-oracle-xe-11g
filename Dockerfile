@@ -16,7 +16,7 @@ chmod 755 /sbin/chkconfig &&\
 
 EXPOSE 1521
 EXPOSE 8080
-VOLUME ["/u01/app/oracle/oradata"]
+VOLUME ["/u01/app/oracle"]
 
 ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
