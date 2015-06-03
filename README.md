@@ -17,6 +17,19 @@ Run with data on host and reuse it:
 
     docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle sath89/oracle-xe-11g
 
+Run with customization of processes, sessions, transactions
+This customization is needed on the database initialization stage. If you are using mounted folder with DB files this is not used:
+
+    ##Consider this formula before customizing:
+    #processes=x
+    #sessions=x*1.1+5
+    #transactions=sessions*1.1
+    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle\
+    -e processes=1000 \
+    -e sessions=1105 \
+    -e transactions=1215 \
+    sath89/oracle-xe-11g
+
 Connect database with following setting:
 
     hostname: localhost

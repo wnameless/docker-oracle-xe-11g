@@ -25,9 +25,26 @@ case "$1" in
 			ln -s /u01/app/oracle/dbs /u01/app/oracle-product/11.2.0/xe/dbs
 		else
 			echo "Database not initialized. Initializing database."
+
+			printf "Setting up:\nprocesses=$processes\nsessions=$sessions\ntransactions=$transactions\n"
+			echo "If you want to use different parameters set processes, sessions, transactions env variables and consider this formula:"
+			printf "processes=x\nsessions=x*1.1+5\ntransactions=sessions*1.1\n"
+
 			mv /u01/app/oracle-product/11.2.0/xe/dbs /u01/app/oracle/dbs
 			ln -s /u01/app/oracle/dbs /u01/app/oracle-product/11.2.0/xe/dbs
+
+			#Setting up processes, sessions, transactions.
+			sed -i -E "s/processes=[^)]+/processes=$processes/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/init.ora
+			sed -i -E "s/processes=[^)]+/processes=$processes/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/initXETemp.ora
+			
+			sed -i -E "s/sessions=[^)]+/sessions=$sessions/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/init.ora
+			sed -i -E "s/sessions=[^)]+/sessions=$sessions/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/initXETemp.ora
+
+			sed -i -E "s/transactions=[^)]+/transactions=$transactions/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/init.ora
+			sed -i -E "s/transactions=[^)]+/transactions=$transactions/g" /u01/app/oracle/product/11.2.0/xe/config/scripts/initXETemp.ora
+
 			printf 8080\\n1521\\noracle\\noracle\\ny\\n | /etc/init.d/oracle-xe configure
+
 			echo "Database initialized. Please visit http://#containeer:8080/apex to proceed with configuration"
 		fi
 
