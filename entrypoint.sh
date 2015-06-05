@@ -7,10 +7,6 @@ ln -s /u01/app/oracle-product /u01/app/oracle/product
 # Update hostname
 sed -i -E "s/HOST = [^)]+/HOST = $HOSTNAME/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
 sed -i -E "s/PORT = [^)]+/PORT = 1521/g" /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora
-echo "export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe" > /etc/profile.d/oracle-xe.sh
-echo "export PATH=\$ORACLE_HOME/bin:\$PATH" >> /etc/profile.d/oracle-xe.sh
-echo "export ORACLE_SID=XE" >> /etc/profile.d/oracle-xe.sh
-. /etc/profile
 
 case "$1" in
 	'')
