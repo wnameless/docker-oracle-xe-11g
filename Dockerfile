@@ -2,6 +2,9 @@ FROM ubuntu:14.04.1
 
 MAINTAINER Maksym Bilenko <sath891@gmail.com>
 
+# get rid of the message: "debconf: unable to initialize frontend: Dialog"
+ENV DEBIAN_FRONTEND noninteractive
+
 ADD chkconfig /sbin/chkconfig
 ADD oracle-install.sh /oracle-install.sh
 ADD init.ora /
