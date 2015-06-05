@@ -5,6 +5,11 @@ MAINTAINER Maksym Bilenko <sath891@gmail.com>
 # get rid of the message: "debconf: unable to initialize frontend: Dialog"
 ENV DEBIAN_FRONTEND noninteractive
 
+# see issue #1
+ENV ORACLE_HOME /u01/app/oracle/product/11.2.0/xe
+ENV PATH $ORACLE_HOME/bin:$PATH
+ENV ORACLE_SID=XE
+
 ADD chkconfig /sbin/chkconfig
 ADD oracle-install.sh /oracle-install.sh
 ADD init.ora /
