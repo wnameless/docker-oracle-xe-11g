@@ -11,7 +11,7 @@ ADD init.ora /
 ADD initXETemp.ora /
 
 # Prepare to install Oracle
-RUN apt-get update && apt-get install -y libaio1 net-tools bc wget && apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* &&\
+RUN apt-get update && apt-get install -y -q libaio1 net-tools bc wget && apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/* &&\
 ln -s /usr/bin/awk /bin/awk &&\
 mkdir /var/lock/subsys &&\
 chmod 755 /sbin/chkconfig &&\
