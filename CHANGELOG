@@ -1,0 +1,15 @@
+[Dockerfile]
+switched to Ubuntu 14.04.02
+prefer 'curl' to 'wget' to have a progress bar
+inserted ORA env # see issue 1
+set 'apt-get' quieter
+enable 'noninteractive' for 'apt-get'
+
+[oracle-install.sh]
+progress bar on download of orcale installer
+merge the download into a function
+
+[entrypoint.sh]
+removed ORA env
+
+
