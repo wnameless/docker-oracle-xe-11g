@@ -1,5 +1,6 @@
 docker-oracle-xe-11g
 ============================
+[![](https://badge.imagelayers.io/sath89/oracle-xe-11g:latest.svg)](https://imagelayers.io/?images=sath89/oracle-xe-11g:latest 'Get your own badge on imagelayers.io')
 
 Oracle Express Edition 11g Release 2 on Ubuntu 14.04.1 LTS
 
