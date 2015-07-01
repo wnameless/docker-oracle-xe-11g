@@ -18,7 +18,7 @@ downloadOracle () {
 	local i=1
 	for part in "${ora_deb_partial[@]}"; do     
 		echo "[Downloading '$part' (part $i/3)]"
-		curl -o /$part -L $url/blob/master/$part?raw=true
+		curl -s --retry 3 -m 60 -o /$part -L $url/blob/master/$part?raw=true
 		i=$((i + 1))
 
 	done
