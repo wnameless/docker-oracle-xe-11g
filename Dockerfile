@@ -1,4 +1,4 @@
-FROM ubuntu:14.04.2
+FROM ubuntu:14.04
 
 MAINTAINER Maksym Bilenko <sath891@gmail.com>
 
