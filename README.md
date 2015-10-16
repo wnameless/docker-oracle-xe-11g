@@ -50,6 +50,10 @@ Connect to Oracle Application Express web management console with following sett
     user: ADMIN
     password: oracle
 
+
+**In case of any issues please post it [here](https://github.com/MaksymBilenko/docker-oracle-xe-11g/issues).**
+
+
 **CHANGELOG**
 * Fixed issue with reusable mounted data
 * Fixed issue with ownership of mounted data folders
