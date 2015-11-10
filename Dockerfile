@@ -34,3 +34,4 @@ ENV transactions 610
 
 ADD entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
+CMD [""]
