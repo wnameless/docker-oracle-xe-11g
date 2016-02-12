@@ -27,7 +27,7 @@ password: oracle
 Example of command line to connect to the database:
 
 ```
-rlwrap sqlplus system/oracle@"//localhost:49161/xe"
+rlwrap sqlplus system/oracle@"//localhost:49161/xe
 ```
 
 Password for SYS & SYSTEM
