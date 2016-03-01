@@ -62,6 +62,6 @@ case "$1" in
 
 	*)
 		echo "Database is not configured. Please run /etc/init.d/oracle-xe configure if needed."
-		$1
+		exec "$@"
 		;;
 esac
