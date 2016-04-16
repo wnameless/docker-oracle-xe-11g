@@ -15,6 +15,11 @@ Run with 22 and 1521 ports opened:
 docker run -d -p 49160:22 -p 49161:1521 wnameless/oracle-xe-11g
 ```
 
+Run this, if you want the database to be connected remotely:
+```
+docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
+```
+
 Connect database with following setting:
 ```
 hostname: localhost
