@@ -10,6 +10,11 @@ This **Dockerfile** is a [trusted build](https://registry.hub.docker.com/u/wname
 docker pull wnameless/oracle-xe-11g
 ```
 
+Run this, if you want to use the Ubuntu 16.04 LTS
+```
+docker pull wnameless/oracle-xe-11g:16.04
+```
+
 Run with 22 and 1521 ports opened:
 ```
 docker run -d -p 49160:22 -p 49161:1521 wnameless/oracle-xe-11g
