@@ -1,11 +1,12 @@
 #!/bin/bash
 
-# avoid dpkg frontend dialog / frontend warnings 
+# avoid dpkg frontend dialog / frontend warnings
 export DEBIAN_FRONTEND=noninteractive
 
 cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb
 
 # Install OpenSSH
+apt-get update
 apt-get install -y openssh-server &&
 mkdir /var/run/sshd &&
 echo 'root:admin' | chpasswd &&
