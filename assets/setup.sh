@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb
 
 # Install OpenSSH
-apt-get install -y openssh-server &&
+apt-get update && apt-get install -y openssh-server &&
 mkdir /var/run/sshd &&
 echo 'root:admin' | chpasswd &&
 sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config &&
