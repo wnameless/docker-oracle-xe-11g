@@ -8,10 +8,10 @@ sed -i "s/%port%/1521/g" "${LISTENERS_ORA}" &&
 service oracle-xe start
 
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+export PATH=$ORACLE_HOME/bin:$PATH
+export ORACLE_SID=XE
 
 if [ "$ORACLE_ALLOW_REMOTE" = true ]; then
-  export PATH=$ORACLE_HOME/bin:$PATH
-  export ORACLE_SID=XE
   echo "alter system disable restricted session;" | sqlplus -s SYSTEM/oracle
 fi
 
