@@ -44,3 +44,11 @@ Login by SSH
 ssh root@localhost -p 49160
 password: admin
 ```
+
+Support custom DB Initialization
+```
+# Dockerfile
+FROM wnameless/oracle-xe-11g
+
+ADD init.sql /docker-entrypoint-initdb.d/
+```
