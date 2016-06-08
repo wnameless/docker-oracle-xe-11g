@@ -44,3 +44,8 @@ Login by SSH
 ssh root@localhost -p 49160
 password: admin
 ```
+
+Connect with SQL*Plus
+```
+sqlplus system/oracle
+```
