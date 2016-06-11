@@ -26,6 +26,7 @@ dpkg --install /assets/oracle-xe_11.2.0-1.0_amd64.deb &&
 
 # Backup listener.ora as template
 cp /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora /u01/app/oracle/product/11.2.0/xe/network/admin/listener.ora.tmpl &&
+cp /u01/app/oracle/product/11.2.0/xe/network/admin/tnsnames.ora /u01/app/oracle/product/11.2.0/xe/network/admin/tnsnames.ora.tmpl &&
 
 mv /assets/init.ora /u01/app/oracle/product/11.2.0/xe/config/scripts &&
 mv /assets/initXETemp.ora /u01/app/oracle/product/11.2.0/xe/config/scripts &&
