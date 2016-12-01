@@ -25,6 +25,11 @@ Run this, if you want the database to be connected remotely:
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
 ```
 
+Run this to store data in a volume outside the docker container:
+```
+docker run -d -p 49160:22 -p 49161:1521 -v /my/data/folder:/u01/app/oracle/oradata wnameless/oracle-xe-11g
+```
+
 Connect database with following setting:
 ```
 hostname: localhost
