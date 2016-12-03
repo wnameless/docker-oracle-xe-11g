@@ -3,7 +3,7 @@
 # Initialize the host's data volume, leaving a trace when finished.
 if [ ! -e /u01/app/oracle/oradata/dataloaded ]
 then
-  cp -r /u01/app/oracle/oradata.orig/* /u01/app/oracle/oradata/
+  cp -a /u01/app/oracle/oradata.orig/* /u01/app/oracle/oradata/
   touch /u01/app/oracle/oradata/dataloaded
   echo "Host data volume was initialized."
 else
