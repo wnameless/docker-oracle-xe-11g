@@ -55,10 +55,18 @@ Apex upgrade up to v 5.*
     docker run -it --rm --volumes-from ${DB_CONTAINER_NAME} --link ${DB_CONTAINER_NAME}:oracle-database -e PASS=YourSYSPASS sath89/apex install
 Details could be found here: https://github.com/MaksymBilenko/docker-oracle-apex
 
+Auto import of sh sql and dmp files
+
+    docker run -d -p 8080:8080 -p 1521:1521 -v /my/oracle/data:/u01/app/oracle -v /my/oracle/init/sh_sql_dmp_files:/docker-entrypoint-initdb.d sath89/oracle-xe-11g
+
+**In case of using DMP imports dump file should be named like ${IMPORT_SCHEME_NAME}.dmp**
+**User credentials for imports are  ${IMPORT_SCHEME_NAME}/${IMPORT_SCHEME_NAME}**
+
 **In case of any issues please post it [here](https://github.com/MaksymBilenko/docker-oracle-xe-11g/issues).**
 
 
 **CHANGELOG**
+* Added auto-import using volume /docker-entrypoint-initdb.d for *.sh *.sql *.dmp
 * Fixed issue with reusable mounted data
 * Fixed issue with ownership of mounted data folders
 * Fixed issue with Gracefull shutdown of service

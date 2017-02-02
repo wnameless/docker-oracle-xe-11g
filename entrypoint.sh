@@ -12,6 +12,30 @@ echo "export PATH=\$ORACLE_HOME/bin:\$PATH" >> /etc/profile.d/oracle-xe.sh
 echo "export ORACLE_SID=XE" >> /etc/profile.d/oracle-xe.sh
 . /etc/profile
 
+impdp () {
+	DUMP_FILE=$(basename "$1")
+	DUMP_NAME=${DUMP_FILE%.dmp} 
+	cat > /tmp/impdp.sql << EOL
+-- Impdp User
+CREATE USER IMPDP IDENTIFIED BY IMPDP;
+ALTER USER IMPDP ACCOUNT UNLOCK;
+GRANT dba TO IMPDP WITH ADMIN OPTION;
+-- New Scheme User
+create or replace directory IMPDP as '/docker-entrypoint-initdb.d';
+create tablespace $DUMP_NAME datafile '$ORACLE_HOME/$DUMP_NAME.dbf' size 1000M autoextend on next 100M maxsize unlimited;
+create user $DUMP_NAME identified by $DUMP_NAME default tablespace $DUMP_NAME;
+alter user $DUMP_NAME quota unlimited on $DUMP_NAME;
+alter user $DUMP_NAME default role all;
+grant connect, resource to $DUMP_NAME;
+exit;
+EOL
+
+	su oracle -c "NLS_LANG=.$CHARACTER_SET $ORACLE_HOME/bin/sqlplus -S / as sysdba @/tmp/impdp.sql"
+	su oracle -c "NLS_LANG=.$CHARACTER_SET $ORACLE_HOME/bin/impdp IMPDP/IMPDP directory=IMPDP dumpfile=$DUMP_FILE"
+	#Disable IMPDP user
+	echo -e 'ALTER USER IMPDP ACCOUNT LOCK;\nexit;' | su oracle -c "NLS_LANG=.$CHARACTER_SET $ORACLE_HOME/bin/sqlplus -S / as sysdba"
+}
+
 case "$1" in
 	'')
 		#Check for mounted database files
@@ -25,6 +49,12 @@ case "$1" in
 			ln -s /u01/app/oracle/dbs /u01/app/oracle-product/11.2.0/xe/dbs
 		else
 			echo "Database not initialized. Initializing database."
+
+			export IMPORT_FROM_VOLUME=true
+
+			if [ -z "$CHARACTER_SET" ]; then
+				export CHARACTER_SET="AL32UTF8"
+			fi
 
 			printf "Setting up:\nprocesses=$processes\nsessions=$sessions\ntransactions=$transactions\n"
 			echo "If you want to use different parameters set processes, sessions, transactions env variables and consider this formula:"
@@ -49,6 +79,29 @@ case "$1" in
 		fi
 
 		/etc/init.d/oracle-xe start
+
+		if [ $IMPORT_FROM_VOLUME ]; then
+			echo "Starting import from '/docker-entrypoint-initdb.d':"
+
+			for f in /docker-entrypoint-initdb.d/*; do
+				echo "found file /docker-entrypoint-initdb.d/$f"
+				case "$f" in
+					*.sh)     echo "[IMPORT] $0: running $f"; . "$f" ;;
+					*.sql)    echo "[IMPORT] $0: running $f"; echo "exit" | su oracle -c "NLS_LANG=.$CHARACTER_SET $ORACLE_HOME/bin/sqlplus -S / as sysdba @$f"; echo ;;
+					*.dmp)    echo "[IMPORT] $0: running $f"; impdp $f ;;
+					*)        echo "[IMPORT] $0: ignoring $f" ;;
+				esac
+				echo
+			done
+
+			echo "Import finished"
+			echo
+		else
+			echo "[IMPORT] Not a first start, SKIPPING Import from Volume '/docker-entrypoint-initdb.d'"
+			echo "[IMPORT] If you want to enable import at any state - add 'IMPORT_FROM_VOLUME=true' variable"
+			echo
+		fi
+
 		echo "Database ready to use. Enjoy! ;)"
 
 		##
