@@ -1,4 +1,4 @@
-FROM ubuntu:16.04.02
+FROM ubuntu:16.04.2
 
 MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
 
