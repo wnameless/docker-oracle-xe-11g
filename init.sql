@@ -7,7 +7,7 @@ CREATE USER usuariorecebimento IDENTIFIED BY oracle ACCOUNT UNLOCK;
 GRANT CREATE SESSION TO usuariorecebimento;
 CREATE ROLE rs_recebimento;
 GRANT rs_recebimento TO usuariorecebimento;
-ALTER USER usuariorecebimento DEFAULT ROLE rs_recebimento; 
+ALTER USER usuariorecebimento DEFAULT ROLE rs_recebimento;
 
 CREATE USER flywayautuacao IDENTIFIED BY oracle ACCOUNT UNLOCK QUOTA unlimited on SYSTEM;
 GRANT CREATE SESSION TO flywayautuacao;
@@ -20,6 +20,9 @@ GRANT CREATE SESSION TO usuarioautuacao;
 CREATE ROLE rs_autuacao;
 GRANT rs_autuacao TO usuarioautuacao;
 ALTER USER usuarioautuacao DEFAULT ROLE rs_autuacao;
+CREATE TABLESPACE autuacao_index DATAFILE 'autuacao_index01.dbf' SIZE 5M AUTOEXTEND ON;
+ALTER USER autuacao QUOTA unlimited on autuacao_index;
+ALTER USER activitiautuacao QUOTA unlimited on autuacao_index;
 
 CREATE USER flywaydocuments IDENTIFIED BY oracle ACCOUNT UNLOCK QUOTA unlimited on SYSTEM;
 GRANT CREATE SESSION TO flywaydocuments;
