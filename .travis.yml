@@ -2,6 +2,9 @@ sudo: required
 language: java
 services:
 - docker
+addons:
+  hosts:
+  - docker
 before_cache:
 - docker save -o $HOME/docker_cache/docker.tar $IMAGE_NAME $(docker
   history -q $IMAGE_NAME | tail -n +2 | grep -v \<missing\> | tr '\n' ' ')
