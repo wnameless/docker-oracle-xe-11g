@@ -16,7 +16,7 @@ branches:
   - /^[H|h][F|f]-[a-zA-Z]+-[0-9]+$/
   - /^[F|f][T|t]-[a-zA-Z]+-[0-9]+$/  
 before_install:
-- ls -l
+- ls -l /etc/docker
 - ./assets/configure-registry.sh
 - mkdir -p $HOME/docker_cache
 install: docker load -i $HOME/docker_cache/docker.tar || true
