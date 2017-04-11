@@ -5,9 +5,8 @@ MAINTAINER Javier Peletier <jm@epiclabs.io>
 ADD assets /assets
 ADD /setup.sh /
 RUN /setup.sh
-ADD /setup-docker.sh /
 ADD /startup.sh /usr/sbin/startup.sh
-RUN /setup-docker.sh
+
 
 
 EXPOSE 22

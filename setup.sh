@@ -41,6 +41,17 @@ echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc &&
 # Remove installation files
 rm -r /assets/
 
+mv /u01/app/oracle/product /u01/app/oracle-product
+pushd /u01/app/oracle-product/11.2.0/xe/
+tar zcvf /u01/app/default-dbs.tar.gz dbs
+rm -rf dbs/
+popd
+ 
+tar zcvf /u01/app/default-admin.tar.gz /u01/app/oracle/admin && rm -rf /u01/app/oracle/admin
+tar zcvf /u01/app/default-oradata.tar.gz /u01/app/oracle/oradata && rm -rf /u01/app/oracle/oradata
+tar zcvf /u01/app/default-fast_recovery_area.tar.gz /u01/app/oracle/fast_recovery_area && rm -rf /u01/app/oracle/fast_recovery_area
+
+# Install startup script for container
 
 
 exit $?
