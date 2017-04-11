@@ -1,28 +1,39 @@
 docker-oracle-xe-11g
 ============================
+Oracle Express Edition 11g Release 2 on Ubuntu 16.04 LTS. Fork by epiclabs
 
-Oracle Express Edition 11g Release 2 on Ubuntu 16.04 LTS
+Credit to all the base work and contributors of wnameless/docker-oracle-xe-11g !!
 
-This **Dockerfile** is a [trusted build](https://registry.hub.docker.com/u/wnameless/oracle-xe-11g/) of [Docker Registry](https://registry.hub.docker.com/).
+## Main features of this fork:
+
+* Volume support. Tweaks the configuration so you only have to mount an external empty directory to kick off your database.
+* Removed SSH
+* Graceful shutdown
 
 ### Installation(with Ubuntu 16.04)
-```
-docker pull wnameless/oracle-xe-11g
+
+```bash 
+$ docker pull epiclabs/docker-oracle-xe-11g
 ```
 
-### Installation(with older Ubuntu 14.04.4)
-```
-docker pull wnameless/oracle-xe-11g:14.04.4
-```
-
-Run with 22 and 1521 ports opened:
-```
-docker run -d -p 49160:22 -p 49161:1521 wnameless/oracle-xe-11g
+Run with port 1521 opened:
+```bash
+$ docker run -d -p 1521:1521 epiclabs/docker-oracle-xe-11g
 ```
 
-Run this, if you want the database to be connected remotely:
+Volume support:
+
+```bash
+$ docker run -d -v /var/yourdata:/u01/app/oracle -p 1521:1521 epiclabs/docker-oracle-xe-11g
 ```
-docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
+
+`/var/yourdata` is an empty directory which will be initialized as soon as the image runs for the first time. If the directory already contains data produced by a previous instance of this image, then the data is preserved. With this, the container can be thrown away every time.
+
+
+Run like this, if you want the database to be connected remotely:
+
+```bash
+$ docker run -d -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true epiclabs/docker-oracle-xe-11g
 ```
 
 Connect database with following setting:
@@ -39,16 +50,10 @@ Password for SYS & SYSTEM
 oracle
 ```
 
-Login by SSH
-```
-ssh root@localhost -p 49160
-password: admin
-```
-
 Support custom DB Initialization
 ```
 # Dockerfile
-FROM wnameless/oracle-xe-11g
+FROM epiclabs/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
 ```
