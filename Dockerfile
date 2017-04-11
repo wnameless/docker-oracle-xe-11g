@@ -1,12 +1,17 @@
 FROM ubuntu:16.04
 
-MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
+MAINTAINER Javier Peletier <jm@epiclabs.io>
 
 ADD assets /assets
-RUN /assets/setup.sh
+ADD /setup.sh /
+RUN /setup.sh
+ADD /setup-docker.sh /
+ADD /startup.sh /usr/sbin/startup.sh
+RUN /setup-docker.sh
+
 
 EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
 
-CMD /usr/sbin/startup.sh && /usr/sbin/sshd -D
+ENTRYPOINT ["/usr/sbin/startup.sh"]
