@@ -59,7 +59,7 @@ export ORACLE_SID=XE
 if [ -z "$ORACLE_PASSWORD" ] ; then
 	export ORACLE_PASSWORD="oracle";
 else
-	if [ ! -e "/custompwd.id" ] ; then
+	if [ ! -e "/u01/app/oracle/custompwd.id" ] ; then
 		echo "Setting SYS password... "
 		if ! echo "ALTER USER SYS IDENTIFIED BY \"$ORACLE_PASSWORD\";" | sqlplus -s SYSTEM/oracle ; then
 			echo "Error setting SYS password."
@@ -73,7 +73,7 @@ else
 			exit 1;
 		fi
 		
-		touch /custompwd.id
+		touch /u01/app/oracle/custompwd.id
 	fi
 
 fi
