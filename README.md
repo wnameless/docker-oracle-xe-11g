@@ -45,7 +45,7 @@ username: system
 password: oracle
 ```
 
-Password for SYS & SYSTEM
+Default password for SYS & SYSTEM
 ```
 oracle
 ```
@@ -57,3 +57,27 @@ FROM epiclabs/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
 ```
+
+### Environment variables
+
+* `ORACLE_PASSWORD` : Changes SYS and SYSTEM password to this value
+* `RELAX_SECURITY` : If set to 1, a relaxed password policy profile will be put in place with this parameters for `SYS` and `SYSTEM` : 
+
+```
+CREATE PROFILE NOEXPIRY LIMIT
+  COMPOSITE_LIMIT UNLIMITED
+  PASSWORD_LIFE_TIME UNLIMITED
+  PASSWORD_REUSE_TIME UNLIMITED
+  PASSWORD_REUSE_MAX UNLIMITED
+  PASSWORD_VERIFY_FUNCTION NULL
+  PASSWORD_LOCK_TIME UNLIMITED
+  PASSWORD_GRACE_TIME UNLIMITED
+  FAILED_LOGIN_ATTEMPTS UNLIMITED;
+```
+
+Example:
+
+```bash
+$ docker run -d -p 1521:1521 -e ORACLE_ALLOW_REMOTE=true -e ORACLE_PASSWORD=testpassword -e RELAX_SECURITY=1 epiclabs/docker-oracle-xe-11g
+```
+

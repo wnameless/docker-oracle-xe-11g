@@ -56,10 +56,34 @@ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
 
-if [ -z "$ORACLE_PASSWORD" ] ; then
-	export ORACLE_PASSWORD="oracle";
-else
-	if [ ! -e "/u01/app/oracle/custompwd.id" ] ; then
+
+if [ ! -e "/u01/app/oracle/initialized.id" ] ; then
+
+	echo "Performing initial database setup ..."
+
+	if [ ! -z "$RELAX_SECURITY" ] ; then
+		echo "WARNING: Relaxing profile security with no password reuse limits, etc. Use with caution ..."
+		echo "CREATE PROFILE NOEXPIRY LIMIT
+			  COMPOSITE_LIMIT UNLIMITED
+			  PASSWORD_LIFE_TIME UNLIMITED
+			  PASSWORD_REUSE_TIME UNLIMITED
+			  PASSWORD_REUSE_MAX UNLIMITED
+			  PASSWORD_VERIFY_FUNCTION NULL
+			  PASSWORD_LOCK_TIME UNLIMITED
+			  PASSWORD_GRACE_TIME UNLIMITED
+			  FAILED_LOGIN_ATTEMPTS UNLIMITED;" | sqlplus -s SYSTEM/oracle
+			  
+		echo "ALTER USER SYSTEM PROFILE NOEXPIRY;" | sqlplus -s SYSTEM/oracle
+		echo "ALTER USER SYS PROFILE NOEXPIRY;" | sqlplus -s SYSTEM/oracle
+		echo "Security relaxed."
+		
+	fi
+
+	if [ -z "$ORACLE_PASSWORD" ] ; then
+		echo "Warning: using default password!!. Set ORACLE_PASSWORD environment variable to change it"
+		export ORACLE_PASSWORD="oracle";
+	else
+
 		echo "Setting SYS password... "
 		if ! echo "ALTER USER SYS IDENTIFIED BY \"$ORACLE_PASSWORD\";" | sqlplus -s SYSTEM/oracle ; then
 			echo "Error setting SYS password."
@@ -72,12 +96,10 @@ else
 			echo "Error setting SYSTEM password."
 			exit 1;
 		fi
-		
-		touch /u01/app/oracle/custompwd.id
 	fi
-
+	
+	touch "/u01/app/oracle/initialized.id"
 fi
-
 
 
 
