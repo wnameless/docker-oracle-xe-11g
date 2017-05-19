@@ -9,6 +9,8 @@ echo "forked from wnameless/docker-oracle-xe-11g"
 echo ""
 echo ""
 
+
+
 LISTENER_ORA=/u01/app/oracle-product/11.2.0/xe/network/admin/listener.ora
 TNSNAMES_ORA=/u01/app/oracle-product/11.2.0/xe/network/admin/tnsnames.ora
 
@@ -54,8 +56,33 @@ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
 
+if [ -z "$ORACLE_PASSWORD" ] ; then
+	export ORACLE_PASSWORD="oracle";
+else
+	if [ ! -e "/custompwd.id" ] ; then
+		echo "Setting SYS password... "
+		if ! echo "ALTER USER SYS IDENTIFIED BY \"$ORACLE_PASSWORD\";" | sqlplus -s SYSTEM/oracle ; then
+			echo "Error setting SYS password."
+			exit 1;
+		fi
+		
+		echo "Setting SYSTEM password... "
+		
+		if	! echo "ALTER USER SYSTEM IDENTIFIED BY \"$ORACLE_PASSWORD\";" | sqlplus -s SYSTEM/oracle  ; then
+			echo "Error setting SYSTEM password."
+			exit 1;
+		fi
+		
+		touch /custompwd.id
+	fi
+
+fi
+
+
+
+
 if [ "$ORACLE_ALLOW_REMOTE" = true ]; then
-  echo "alter system disable restricted session;" | sqlplus -s SYSTEM/oracle
+  echo "alter system disable restricted session;" | sqlplus -s "SYSTEM/$ORACLE_PASSWORD"
 fi
 
 echo "Running startup scripts ..."
@@ -63,7 +90,7 @@ echo "Running startup scripts ..."
 for f in /docker-entrypoint-initdb.d/*; do
   case "$f" in
     *.sh)     echo "$0: running $f"; . "$f" ;;
-    *.sql)    echo "$0: running $f"; echo "exit" | /u01/app/oracle/product/11.2.0/xe/bin/sqlplus "SYS/oracle" AS SYSDBA @"$f"; echo ;;
+    *.sql)    echo "$0: running $f"; echo "exit" | /u01/app/oracle/product/11.2.0/xe/bin/sqlplus "SYS/$ORACLE_PASSWORD" AS SYSDBA @"$f"; echo ;;
     *)        echo "$0: ignoring $f" ;;
   esac
   echo

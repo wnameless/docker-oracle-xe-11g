@@ -7,15 +7,6 @@ cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd6
 
 apt-get update
 
-# Install OpenSSH
-
-#apt-get install -y openssh-server &&
-#mkdir /var/run/sshd &&
-#echo 'root:admin' | chpasswd &&
-#sed -i 's/^PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
-#sed -i 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' /etc/pam.d/sshd &&
-#echo 'export VISIBLE=now' >> /etc/profile &&
-
 # Prepare to install Oracle
 apt-get install -y libaio1 net-tools bc &&
 ln -s /usr/bin/awk /bin/awk &&

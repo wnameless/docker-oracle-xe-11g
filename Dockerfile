@@ -9,7 +9,6 @@ ADD /startup.sh /usr/sbin/startup.sh
 
 
 
-EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
 
