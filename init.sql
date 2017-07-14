@@ -33,8 +33,10 @@ CREATE USER activitiregistro IDENTIFIED BY oracle ACCOUNT LOCK QUOTA unlimited o
 CREATE USER usuarioregistro IDENTIFIED BY oracle ACCOUNT UNLOCK;
 GRANT CREATE SESSION TO usuarioregistro;
 CREATE ROLE rs_registro;
+CREATE ROLE rs_activitiregistro;
 GRANT rs_registro TO usuarioregistro;
-ALTER USER usuarioregistro DEFAULT ROLE rs_registro;
+GRANT rs_activitiregistro TO usuarioregistro;
+ALTER USER usuarioregistro DEFAULT ROLE rs_registro,rs_activitiregistro;
 CREATE TABLESPACE registro_index DATAFILE 'registro_index01.dbf' SIZE 5M AUTOEXTEND ON;
 ALTER USER registro QUOTA unlimited on registro_index;
 ALTER USER activitiregistro QUOTA unlimited on registro_index;
