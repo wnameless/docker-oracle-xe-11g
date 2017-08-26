@@ -30,6 +30,11 @@ By default, the passeord verification is disable(password never expired). If you
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_PASSWORD_VERIFY=true wnameless/oracle-xe-11g
 ```
 
+For performance concern, you may want to disable the disk asynch IO:
+```
+docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_DISABLE_ASYNCH_IO=true wnameless/oracle-xe-11g
+```
+
 Connect database with following setting:
 ```
 hostname: localhost
