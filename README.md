@@ -25,6 +25,11 @@ Run this, if you want the database to be connected remotely:
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
 ```
 
+By default, the passeord verification is disable(password never expired). If you want it back, run this:
+```
+docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_PASSWORD_VERIFY=true wnameless/oracle-xe-11g
+```
+
 Connect database with following setting:
 ```
 hostname: localhost
@@ -52,3 +57,4 @@ FROM wnameless/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
 ```
+After initialization, all files under /docker-entrypoint-initdb.d will be moved to /docker-entrypoint-initdb.d.bak
