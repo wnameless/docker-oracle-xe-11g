@@ -15,10 +15,17 @@ export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
 
-echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
+if ! [ "$ORACLE_PASSWORD_VERIFY" = true ]; then
+  echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
+end
 
 if [ "$ORACLE_ALLOW_REMOTE" = true ]; then
   echo "alter system disable restricted session;" | sqlplus -s SYSTEM/oracle
+fi
+
+if [ "$ORACLE_DISABLE_ASYNCH_IO" = true ]; then
+  echo "ALTER SYSTEM SET disk_asynch_io = FALSE SCOPE = SPFILE;" | sqlplus -s SYSTEM/oracle
+  service oracle-xe restart
 fi
 
 for f in /docker-entrypoint-initdb.d/*; do
