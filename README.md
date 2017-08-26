@@ -35,6 +35,16 @@ For performance concern, you may want to disable the disk asynch IO:
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_DISABLE_ASYNCH_IO=true wnameless/oracle-xe-11g
 ```
 
+For XDB user, run this:
+```
+docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ENABLE_XDB=true wnameless/oracle-xe-11g
+```
+```
+# Login http://localhost:8080 with following credential:
+username: XDB
+password: xdb
+```
+
 Connect database with following setting:
 ```
 hostname: localhost
