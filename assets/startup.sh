@@ -17,7 +17,7 @@ export ORACLE_SID=XE
 
 if ! [ "$ORACLE_PASSWORD_VERIFY" = true ]; then
   echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
-end
+fi
 
 if [ "$ORACLE_ENABLE_XDB" = true ]; then
   echo "ALTER USER XDB ACCOUNT UNLOCK;" | sqlplus -s SYSTEM/oracle
