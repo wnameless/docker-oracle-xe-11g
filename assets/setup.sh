@@ -44,5 +44,8 @@ chmod +x /usr/sbin/startup.sh &&
 # Remove installation files
 rm -r /assets/
 
+# Create initialization script folders
+mkdir /docker-entrypoint-initdb.d
+mkdir /docker-entrypoint-initdb.d.bak
 
 exit $?
