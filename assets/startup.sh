@@ -19,6 +19,11 @@ if ! [ "$ORACLE_PASSWORD_VERIFY" = true ]; then
   echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
 end
 
+if [ "$ORACLE_ENABLE_XDB" = true ]; then
+  echo "ALTER USER XDB ACCOUNT UNLOCK;" | sqlplus -s SYSTEM/oracle
+  echo "ALTER USER XDB IDENTIFIED BY xdb;" | sqlplus -s SYSTEM/oracle
+fi
+
 if [ "$ORACLE_ALLOW_REMOTE" = true ]; then
   echo "alter system disable restricted session;" | sqlplus -s SYSTEM/oracle
 fi
