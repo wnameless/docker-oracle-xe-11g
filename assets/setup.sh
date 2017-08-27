@@ -46,6 +46,5 @@ rm -r /assets/
 
 # Create initialization script folders
 mkdir /docker-entrypoint-initdb.d
-mkdir /docker-entrypoint-initdb.d.bak
 
 exit $?

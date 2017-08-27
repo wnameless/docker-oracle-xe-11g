@@ -41,7 +41,3 @@ for f in /docker-entrypoint-initdb.d/*; do
   esac
   echo
 done
-
-if [ "$(ls -A /docker-entrypoint-initdb.d)" ]; then
-  mv /docker-entrypoint-initdb.d/* /docker-entrypoint-initdb.d.bak
-fi
