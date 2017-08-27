@@ -72,4 +72,3 @@ FROM wnameless/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
 ```
-After initialization, all files under /docker-entrypoint-initdb.d will be moved to /docker-entrypoint-initdb.d.bak
