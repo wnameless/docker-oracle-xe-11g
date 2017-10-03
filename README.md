@@ -25,7 +25,7 @@ Run this, if you want the database to be connected remotely:
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_ALLOW_REMOTE=true wnameless/oracle-xe-11g
 ```
 
-By default, the passeord verification is disable(password never expired). If you want it back, run this:
+By default, the password verification is disable(password never expires). If you want it back, run this:
 ```
 docker run -d -p 49160:22 -p 49161:1521 -e ORACLE_PASSWORD_VERIFY=true wnameless/oracle-xe-11g
 ```
