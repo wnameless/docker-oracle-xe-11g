@@ -6,7 +6,7 @@ export DEBIAN_FRONTEND=noninteractive
 cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb
 
 # Install OpenSSH
-apt-get update
+apt-get update &&
 apt-get install -y openssh-server &&
 mkdir /var/run/sshd &&
 echo 'root:admin' | chpasswd &&
@@ -44,5 +44,7 @@ chmod +x /usr/sbin/startup.sh &&
 # Remove installation files
 rm -r /assets/
 
+# Create initialization script folders
+mkdir /docker-entrypoint-initdb.d
 
 exit $?
