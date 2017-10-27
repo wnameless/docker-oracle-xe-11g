@@ -66,3 +66,14 @@ CREATE ROLE rs_corporativo;
 CREATE ROLE rs_configuracao;
 GRANT rs_identidades, rs_corporativo, rs_configuracao TO usuarioidentidades;
 ALTER USER usuarioidentidades DEFAULT ROLE rs_identidades, rs_corporativo, rs_configuracao;
+
+CREATE USER flywaypessoa IDENTIFIED BY oracle ACCOUNT UNLOCK QUOTA unlimited on SYSTEM;
+GRANT CREATE SESSION TO flywaypessoa;
+GRANT DBA TO flywaypessoa;
+
+CREATE USER pessoa IDENTIFIED BY oracle ACCOUNT LOCK QUOTA unlimited on SYSTEM;
+CREATE USER usuariopessoa IDENTIFIED BY oracle ACCOUNT UNLOCK;
+GRANT CREATE SESSION TO usuariopessoa;
+CREATE ROLE rs_pessoa;
+GRANT rs_pessoa TO usuariopessoa;
+ALTER USER usuariopessoa DEFAULT ROLE rs_pessoa;
