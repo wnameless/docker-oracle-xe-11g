@@ -77,3 +77,14 @@ GRANT CREATE SESSION TO usuariopessoa;
 CREATE ROLE rs_pessoa;
 GRANT rs_pessoa TO usuariopessoa;
 ALTER USER usuariopessoa DEFAULT ROLE rs_pessoa;
+
+CREATE USER flywayimpedimento IDENTIFIED BY oracle ACCOUNT UNLOCK QUOTA unlimited on SYSTEM;
+GRANT CREATE SESSION TO flywayimpedimento;
+GRANT DBA TO flywayimpedimento;
+
+CREATE USER impedimento IDENTIFIED BY oracle ACCOUNT LOCK QUOTA unlimited on SYSTEM;
+CREATE USER usuarioimpedimento IDENTIFIED BY oracle ACCOUNT UNLOCK;
+GRANT CREATE SESSION TO usuarioimpedimento;
+CREATE ROLE rs_impedimento;
+GRANT rs_impedimento TO usuarioimpedimento;
+ALTER USER usuarioimpedimento DEFAULT ROLE rs_impedimento;
