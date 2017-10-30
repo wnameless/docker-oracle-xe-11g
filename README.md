@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/supremotribunalfederal/docker-oracle-xe-11g.svg?branch=master)](https://travis-ci.org/supremotribunalfederal/docker-oracle-xe-11g)
+
 docker-oracle-xe-11g
 ============================
 

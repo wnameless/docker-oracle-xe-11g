@@ -1,0 +1,30 @@
+sudo: required
+language: java
+services:
+- docker
+before_cache:
+- docker save -o $HOME/docker_cache/docker.tar $IMAGE_NAME $(docker
+  history -q $IMAGE_NAME | tail -n +2 | grep -v \<missing\> | tr '\n' ' ')
+cache:
+  directories:
+  - "$HOME/docker_cache"
+branches:
+  only:
+  - master
+  - develop
+  - /^[R|r][L|l]-[0-9]+\.[0-9]+\.[0-9]+-[R|r][C|c]$/
+  - /^[H|h][F|f]-[a-zA-Z]+-[0-9]+$/
+  - /^[F|f][T|t]-[a-zA-Z]+-[0-9]+$/  
+before_install:
+- ./assets/configure-registry.sh
+- mkdir -p $HOME/docker_cache
+install: docker load -i $HOME/docker_cache/docker.tar || true
+script: docker build -t $IMAGE_NAME . && ./assets/push-images.sh
+notifications:
+  slack:
+    secure: "Bva9u4qTARf5fBFtuv8byTSVrysUwmrArJcLL+y/lkKdDuWOZDNn4qmMY8lZJzDNTSVA+Y3cfsa7NkryXsvA5gMnbslL9mMSsED4S2kliiPW3mxZL1UMj8S4/eYKbDCXd2FO6FdynXN3Hpf4NApjkPL/t7TwtE2sNqHC0Fm5NaoPswKeL0LnINrgfCRiaGVa87YNbgHU5Vj3GhIuGWClIOpGmJR4KQPaKDjHI4mzZpgXHvUwabPHKMrfWUIkhmAhbgE5mWLtQnYpY/eXWJFLc3LCx4V1qeXsuDcERm37EwzjqcR8E0x7Aw7fmkkHr+PmZmvM7k1JehCHPrl1mt5kF+X0HqJylaTdFquRh/r67ptxdiCwj1M1Mf91IBH3WS0MYVwAfm0rmVj+RgrcW6e2LVf0Hs5hXOBev5fX5e23RD84CUZth0wCK5fX8AjVgofwyln/4XsOlE1rryKHBAMT9g4gyqSlnXzNHTHCuFTH0fiwHRBUskcJvYtMLmd1BE2NTbOqKn6/tU/CHUVLk58w7q2dD4SXX16sD1Q866izpK1HvOBcUlbT1OkiUNk613k3bC7I5+2hmZcVKcHOXQeCnE901fJQ9fQ2qgus2wOUXpLSC5sEY9+pAqjwqdWhQi9/sjUUxah62PQnEJOQNg+24cYicqnY4Jxc7vwK2oyNyio="
+env:
+  global:
+  - VERSION=1.0.0
+  - IMAGE_NAME=stfdigital-oraclexe11g
+  - IMAGE_INTERNAL_REGISTRY_NAME=oraclexe11g
