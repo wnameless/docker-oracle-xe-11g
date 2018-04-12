@@ -5,10 +5,12 @@ Oracle Express Edition 11g Release 2 on Ubuntu 16.04 LTS
 
 This **Dockerfile** is a [trusted build](https://registry.hub.docker.com/u/wnameless/oracle-xe-11g/) of [Docker Registry](https://registry.hub.docker.com/).
 
-### Installation(with Ubuntu 16.04)
+## Installation(with Ubuntu 16.04)
 ```
 docker pull wnameless/oracle-xe-11g
 ```
+
+## Quick Start
 
 Run with 22 and 1521 ports opened:
 ```
@@ -49,7 +51,7 @@ username: XDB
 password: xdb
 ```
 
-By default, the password verification is disable(password never expired)
+By default, the password verification is disable(password never expired)<br/>
 Connect database with following setting:
 ```
 hostname: localhost
