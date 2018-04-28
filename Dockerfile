@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
 
@@ -9,4 +9,4 @@ EXPOSE 22
 EXPOSE 1521
 EXPOSE 8080
 
-CMD /usr/sbin/startup.sh && /usr/sbin/sshd -D
+CMD /usr/sbin/startup.sh && tail -f /dev/null

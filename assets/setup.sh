@@ -3,18 +3,8 @@
 # avoid dpkg frontend dialog / frontend warnings
 export DEBIAN_FRONTEND=noninteractive
 
-cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb
-
-# Install OpenSSH
-apt-get update &&
-apt-get install -y openssh-server &&
-mkdir /var/run/sshd &&
-echo 'root:admin' | chpasswd &&
-sed -i 's/^PermitRootLogin .*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
-sed -i 's/session\s*required\s*pam_loginuid.so/session optional pam_loginuid.so/g' /etc/pam.d/sshd &&
-echo 'export VISIBLE=now' >> /etc/profile &&
-
 # Prepare to install Oracle
+apt-get update &&
 apt-get install -y libaio1 net-tools bc &&
 ln -s /usr/bin/awk /bin/awk &&
 mkdir /var/lock/subsys &&
@@ -22,6 +12,7 @@ mv /assets/chkconfig /sbin/chkconfig &&
 chmod 755 /sbin/chkconfig &&
 
 # Install Oracle
+cat /assets/oracle-xe_11.2.0-1.0_amd64.deba* > /assets/oracle-xe_11.2.0-1.0_amd64.deb &&
 dpkg --install /assets/oracle-xe_11.2.0-1.0_amd64.deb &&
 
 # Backup listener.ora as template
@@ -47,7 +38,7 @@ rm -r /assets/ &&
 # Create initialization script folders
 mkdir /docker-entrypoint-initdb.d
 
-# Disable password expiration
+# Disable Oracle password expiration
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
