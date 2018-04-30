@@ -52,7 +52,7 @@ You will show
 ```
 
 ```
-# Login http://localhost:8080 with following credential:
+# Login http://127.0.0.1:8080 with following credential:
 username: XDB
 password: xdb
 ```
