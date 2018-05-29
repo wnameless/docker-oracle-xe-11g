@@ -32,9 +32,6 @@ echo 'export ORACLE_SID=XE' >> /etc/bash.bashrc &&
 mv /assets/startup.sh /usr/sbin/startup.sh &&
 chmod +x /usr/sbin/startup.sh &&
 
-# Remove installation files
-rm -r /assets/ &&
-
 # Create initialization script folders
 mkdir /docker-entrypoint-initdb.d
 
@@ -46,5 +43,9 @@ export ORACLE_SID=XE
 echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
 echo "alter profile DEFAULT limit password_life_time UNLIMITED;" | sqlplus -s SYSTEM/oracle
 echo "alter user SYSTEM identified by oracle account unlock;" | sqlplus -s SYSTEM/oracle
+cat /assets/apex-default-pwd.sql | sqlplus -s SYSTEM/oracle
+
+# Remove installation files
+rm -r /assets/
 
 exit $?

@@ -33,28 +33,20 @@ For performance concern, you may want to disable the disk asynch IO:
 docker run -d -p 49161:1521 -e ORACLE_DISABLE_ASYNCH_IO=true wnameless/oracle-xe-11g
 ```
 
-For XDB user, run this:
+Enable XDB user with default password: xdb, run this:
 ```
-docker run -d -p 49161:1521 -p 8080:8080 -e ORACLE_ENABLE_XDB=true wnameless/oracle-xe-11g
+docker run -d -p 49161:1521 -e ORACLE_ENABLE_XDB=true wnameless/oracle-xe-11g
 ```
 
-Check if localhost:8080 work
+For APEX user:
 ```
-curl -XGET "http://localhost:8080"
-```
-You will show
-```
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
-<HTML><HEAD>
-<TITLE>401 Unauthorized</TITLE>
-</HEAD><BODY><H1>Unauthorized</H1>
-</BODY></HTML>
+docker run -d -p 49161:1521 -p 8080:8080 wnameless/oracle-xe-11g
 ```
 
 ```
-# Login http://localhost:8080 with following credential:
-username: XDB
-password: xdb
+# Login http://localhost:8080/apex/apex_admin with following credential:
+username: ADMIN
+password: admin
 ```
 
 By default, the password verification is disable(password never expired)<br/>
