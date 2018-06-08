@@ -43,7 +43,17 @@ export ORACLE_SID=XE
 echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
 echo "alter profile DEFAULT limit password_life_time UNLIMITED;" | sqlplus -s SYSTEM/oracle
 echo "alter user SYSTEM identified by oracle account unlock;" | sqlplus -s SYSTEM/oracle
-cat /assets/apex-default-pwd.sql | sqlplus -s SYSTEM/oracle
+
+# Install Apex
+apt-get install -y unzip &&
+cat /assets/apex_18.1.zipa* > /assets/apex_18.1.zip &&
+unzip /assets/apex_18.1.zip -d / &&
+cd /apex &&
+sqlplus "sys/oracle as sysdba" @apexins SYSAUX SYSAUX TEMP /i/ &&
+sqlplus "sys/oracle as sysdba" @apex_epg_config.sql / &&
+cd /assets &&
+sqlplus "sys/oracle as sysdba" @apex-default-pwd.sql &&
+sqlplus "sys/oracle as sysdba" @apex-default-port.sql
 
 # Remove installation files
 rm -r /assets/
