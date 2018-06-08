@@ -46,7 +46,7 @@ docker run -d -p 49161:1521 -p 8080:8080 wnameless/oracle-xe-11g
 ```
 # Login http://localhost:8080/apex/apex_admin with following credential:
 username: ADMIN
-password: admin
+password: Oracle_11g
 ```
 
 By default, the password verification is disable(password never expired)<br/>
