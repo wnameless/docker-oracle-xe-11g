@@ -49,6 +49,17 @@ username: ADMIN
 password: admin
 ```
 
+For latest APEX(18.1) user, please pull wnameless/oracle-xe-11g:18.04-apex first:
+```
+docker run -d -p 49161:1521 -p 8080:8080 wnameless/oracle-xe-11g:18.04-apex
+```
+
+```
+# Login http://localhost:8080/apex/apex_admin with following credential:
+username: ADMIN
+password: Oracle_11g
+```
+
 By default, the password verification is disable(password never expired)<br/>
 Connect database with following setting:
 ```
