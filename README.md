@@ -86,3 +86,24 @@ FROM wnameless/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
 ```
+
+# Tablespace / Spool
+
+If you need to create Tablespace or spool like the following exemples
+
+```
+// mkdir MyProjet
+CREATE tablespace tbs_data datafile '/root/MyProjet/MyTableSpace.dat' SIZE 10M autoextend ON next 10M maxsize 100M;
+```
+or 
+
+```
+set serveroutput on
+accept MyView prompt "Enter view name : "
+spool /root/MyProjet/list_views
+SELECT * FROM dict where TABLE_NAME LIKE '$MyView%';
+spool off
+```
+
+you will have an error, you have to run this 
+`chown -R oracle FOLDER/PATH`
