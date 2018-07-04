@@ -72,10 +72,12 @@ Password for SYS & SYSTEM
 oracle
 ```
 
-Support custom DB Initialization
+Support custom DB Initialization and running shell scripts
 ```
 # Dockerfile
 FROM wnameless/oracle-xe-11g
 
 ADD init.sql /docker-entrypoint-initdb.d/
+ADD script.sh /docker-entrypoint-initdb.d/
 ```
+Running order is alphabetically. 
