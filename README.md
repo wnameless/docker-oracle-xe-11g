@@ -9,6 +9,13 @@ Since 2019-Feb-13(the Valentine's day eve) this docker image has been removed by
 
 Happy Valentine's day!
 
+## Installation
+```
+git clone https://github.com/wnameless/docker-oracle-xe-11g.git
+cd docker-oracle-xe-11g
+docker build -t wnameless/oracle-xe-11g .
+```
+
 ## Installation(with Ubuntu 18.04)
 ```
 docker pull wnameless/oracle-xe-11g
