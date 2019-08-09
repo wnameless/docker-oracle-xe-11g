@@ -1,7 +1,5 @@
 FROM ubuntu:18.04
 
-MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
-
 COPY assets /assets
 RUN /assets/setup.sh
 
