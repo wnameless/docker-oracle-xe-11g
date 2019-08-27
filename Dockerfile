@@ -1,8 +1,6 @@
 FROM ubuntu:18.04
 
-MAINTAINER Wei-Ming Wu <wnameless@gmail.com>
-
-ADD assets /assets
+COPY assets /assets
 RUN /assets/setup.sh
 
 EXPOSE 22
