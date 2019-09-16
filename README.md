@@ -16,17 +16,6 @@ cd docker-oracle-xe-11g
 docker build -t wnameless/oracle-xe-11g .
 ```
 
-## Installation(with Ubuntu 18.04)
-```
-docker pull wnameless/oracle-xe-11g
-```
-SSH server has been removed since 18.04, please use "docker exec" or 16.04 instead.
-
-## Installation(with Ubuntu 16.04)
-```
-docker pull wnameless/oracle-xe-11g:16.04
-```
-
 ## Quick Start
 
 Run with 1521 port opened:
