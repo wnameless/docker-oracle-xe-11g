@@ -55,6 +55,7 @@ service oracle-xe start
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
+export ORACLE_DATA=/u01/app/oracle/oradata/$ORACLE_SID
 
 
 if [ ! -e "/u01/app/oracle/initialized.id" ] ; then
@@ -77,6 +78,12 @@ if [ ! -e "/u01/app/oracle/initialized.id" ] ; then
 		echo "ALTER USER SYS PROFILE NOEXPIRY;" | sqlplus -s SYSTEM/oracle
 		echo "Security relaxed."
 		
+	fi
+
+	echo "Setting db_create_file_dest param..."
+	if ! echo "ALTER SYSTEM SET db_create_file_dest = '$ORACLE_DATA';" | sqlplus -s SYSTEM/oracle; then
+		echo "error setting db_create_file_dest param"
+		exit 1
 	fi
 
 	if [ -z "$ORACLE_PASSWORD" ] ; then
