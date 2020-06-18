@@ -65,7 +65,7 @@ password: admin
 
 For latest APEX(18.1) user, please pull wnameless/oracle-xe-11g-r2:18.04-apex first:
 ```
-docker run -d -p 49161:1521 -p 8080:8080 wnameless/oracle-xe-11g:18.04-apex
+docker run -d -p 49161:1521 -p 8080:8080 wnameless/oracle-xe-11g-r2:18.04-apex
 ```
 
 ```
