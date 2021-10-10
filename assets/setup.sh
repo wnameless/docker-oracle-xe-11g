@@ -35,11 +35,14 @@ chmod +x /usr/sbin/startup.sh &&
 # Create initialization script folders
 mkdir /docker-entrypoint-initdb.d
 
-# Disable Oracle password expiration
 export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
 export PATH=$ORACLE_HOME/bin:$PATH
 export ORACLE_SID=XE
 
+# Allow burst of many short lived connections
+echo "alter system set processes=500 scope=spfile;" | sqlplus -s SYSTEM/oracle
+
+# Disable Oracle password expiration
 echo "ALTER PROFILE DEFAULT LIMIT PASSWORD_VERIFY_FUNCTION NULL;" | sqlplus -s SYSTEM/oracle
 echo "alter profile DEFAULT limit password_life_time UNLIMITED;" | sqlplus -s SYSTEM/oracle
 echo "alter user SYSTEM identified by oracle account unlock;" | sqlplus -s SYSTEM/oracle
