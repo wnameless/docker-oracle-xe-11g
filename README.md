@@ -8,6 +8,8 @@ Oracle Express Edition 11g Release 2 on Ubuntu 18.04 LTS
 git clone https://github.com/wnameless/docker-oracle-xe-11g.git
 cd docker-oracle-xe-11g
 docker build -t wnameless/oracle-xe-11g .
+docker images
+docker run -d -p 1521:1521 -e ORACLE_ALLOW_REMOTE=true --name oraclexe wnameless/oracle-xe-11g
 ```
 
 ## Installation(DockerHub)
