@@ -30,6 +30,15 @@ docker pull wnameless/oracle-xe-11g-r2
 ```
 SSH server has been removed since 18.04, please use "docker exec"
 
+## Oracle XE on Apple M chips
+
+Currently, there is no Oracle Database port for ARM chips, hence Oracle XE images cannot run on the new Apple M chips via Docker Desktop.
+Fortunately, there are other technologies that can spin up x86_64 software on Apple M chips, such as [colina](https://github.com/abiosoft/colima). To run these Oracle XE images on Apple M hardware, follow these simple steps:
+
+* Install colima (instructions)
+* Run colima start --arch x86_64 --memory 4
+* Start container as usual
+
 ## Quick Start
 
 Run with 1521 port opened:
