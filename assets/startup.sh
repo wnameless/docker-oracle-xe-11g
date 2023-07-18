@@ -38,3 +38,7 @@ for f in /docker-entrypoint-initdb.d/*; do
   esac
   echo
 done
+
+echo "#########################"
+echo "DATABASE IS READY TO USE!"
+echo "#########################"
