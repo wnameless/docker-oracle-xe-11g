@@ -1,7 +1,7 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-ADD assets /assets
-RUN assets/setup.sh
+COPY assets /assets
+RUN /assets/setup.sh
 RUN mv /assets/startup.sh /usr/sbin/startup.sh
 
 EXPOSE 1521
